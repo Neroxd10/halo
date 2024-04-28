@@ -1,0 +1,18 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:height="256dp"
+    android:width="256dp"
+    android:viewportWidth="256"
+    android:viewportHeight="256">
+
+  <path
+      android:fillColor="#FFFFFF"
+      android:pathData="M 128,128 c -64,0 -116,52 -116,116 s 52,116 116,116 s 116,-52 116,-116 S 192,128 128,128 z" />
+
+  <path
+      android:fillColor="#FF0000"
+      android:pivotX="128"
+      android:pivotY="128"
+      android:rotation="45" android:pathData="M 80,128 L 128,148 L 128,108 z" />
+
+</vector>

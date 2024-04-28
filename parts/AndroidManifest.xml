@@ -37,9 +37,31 @@
         </receiver>
 
         <service
+            android:name=".battery.CustomTileService"
+            android:icon="@drawable/ic_bypasscharging_tile"
+            android:label="@string/charginglimit_enable_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
             android:name=".battery.ByPassChargingTileService"
             android:icon="@drawable/ic_bypasscharging_tile"
             android:label="@string/bypasscharging_enable_title"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action
+                    android:name="android.service.quicksettings.action.QS_TILE"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".battery.ChargingLimitTileService"
+            android:icon="@drawable/ic_bypasscharging_tile"
+            android:label="@string/charginglimit_enable_title"
             android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
             <intent-filter>
                 <action
