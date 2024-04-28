@@ -6,6 +6,9 @@
 # Legion Assistant
 /sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq                   u:object_r:sysfs_devices_system_cpu:s0
 /sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq                   u:object_r:sysfs_devices_system_cpu:s0
+/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq                   u:object_r:sysfs_devices_system_cpu:s0
+/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq                   u:object_r:sysfs_devices_system_cpu:s0
+/sys/devices/system/cpu/cpu7/cpufreq/scaling_min_freq                   u:object_r:sysfs_devices_system_cpu:s0
 
 # Camera
 /vendor/lib(64)?/libipebpsstriping\.so		                            u:object_r:same_process_hal_file:s0

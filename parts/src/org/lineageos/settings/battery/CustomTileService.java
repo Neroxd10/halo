@@ -16,8 +16,17 @@ public class CustomTileService extends TileService {
     private static final String OPTION_BEASTMODE_KEY = "option_beastmode_enable";
     private static final String OPTION_POWERSAVE_KEY = "option_powersave_enable";
 
+    private static final String NODE_MIN_POLICY0 = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"; 
+    private static final String NODE_MIN_POLICY4 = "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq";
+    private static final String NODE_MIN_POLICY7 = "/sys/devices/system/cpu/cpu7/cpufreq/scaling_min_freq";
+   
+    private static final String NODE_POLICY0 = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     private static final String NODE_POLICY4 = "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq";
     private static final String NODE_POLICY7 = "/sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq";
+
+    private static final int FREQUENCY_MAX_BEASTMODE_POLICY0 = 2016000;
+    private static final int FREQUENCY_MAX_BEASTMODE_POLICY4 = 2745600;
+    private static final int FREQUENCY_MAX_BEASTMODE_POLICY7 = 3187200;
 
     private static final int FREQUENCY_BALANCE = 1996800; // Balance mode frequency for both Policy 4 and 7
     private static final int FREQUENCY_POWERSAVE_POLICY4 = 1171200; // PowerSave mode frequency for Policy 4
@@ -75,6 +84,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_BEASTMODE_KEY, true);
                 editor.putBoolean(OPTION_POWERSAVE_KEY, false);
                 updateFrequency(FREQUENCY_BEASTMODE_POLICY4, FREQUENCY_BEASTMODE_POLICY7);
+                updateFrequency1(FREQUENCY_MAX_BEASTMODE_POLICY0, FREQUENCY_MAX_BEASTMODE_POLICY4, FREQUENCY_MAX_BEASTMODE_POLICY7);
                 break;
             case 2:
                 editor.putBoolean(OPTION_BALANCE_KEY, false);
@@ -90,7 +100,19 @@ public class CustomTileService extends TileService {
         try {
             FileUtils.writeLine(NODE_POLICY4, String.valueOf(freqPolicy4));
             FileUtils.writeLine(NODE_POLICY7, String.valueOf(freqPolicy7));
-            Log.d(TAG, "CPU frequency updated successfully");
+            Log.d(TAG, "CPU maximum frequency updated successfully");
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to update CPU frequency: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void updateFrequency1(int minPolicy0, int minPolicy4, int minPolicy7) {
+        try {
+            FileUtils.writeLine(NODE_MIN_POLICY0, String.valueOf(minPolicy0));
+            FileUtils.writeLine(NODE_MIN_POLICY4, String.valueOf(minPolicy4));
+            FileUtils.writeLine(NODE_MIN_POLICY7, String.valueOf(minPolicy7));
+            Log.d(TAG, "CPU minimum frequency updated successfully");
         } catch (Exception e) {
             Log.e(TAG, "Failed to update CPU frequency: " + e.getMessage());
             e.printStackTrace();
