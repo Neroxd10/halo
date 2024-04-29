@@ -20,7 +20,6 @@ public class CustomTileService extends TileService {
     private static final int BAL_MAX_GPU = 765;
     private static final int BEAST_GPU = 912;
 
-
     private static final String OPTION_BALANCE_KEY = "option_balance_enable";
     private static final String OPTION_BEASTMODE_KEY = "option_beastmode_enable";
     private static final String OPTION_POWERSAVE_KEY = "option_powersave_enable";
@@ -32,6 +31,10 @@ public class CustomTileService extends TileService {
     private static final String NODE_POLICY0 = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq";
     private static final String NODE_POLICY4 = "/sys/devices/system/cpu/cpu4/cpufreq/scaling_max_freq";
     private static final String NODE_POLICY7 = "/sys/devices/system/cpu/cpu7/cpufreq/scaling_max_freq";
+
+    private static final int MIN_CPU0 = 300000;
+    private static final int MIN_CPU4 = 633600;
+    private static final int MIN_CPU7 = 787200;
 
     private static final int FREQUENCY_MAX_BEASTMODE_POLICY0 = 2016000;
     private static final int FREQUENCY_MAX_BEASTMODE_POLICY4 = 2745600;
@@ -87,6 +90,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_BEASTMODE_KEY, false);
                 editor.putBoolean(OPTION_POWERSAVE_KEY, false);
                 updateFrequency(FREQUENCY_BALANCE, FREQUENCY_BALANCE);
+                MinCPU(MIN_CPU0, MIN_CPU4, MIN_CPU7);
                 Gpu(PB_GPU, BAL_MAX_GPU);
                 break;
             case 1:
@@ -102,6 +106,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_BEASTMODE_KEY, false);
                 editor.putBoolean(OPTION_POWERSAVE_KEY, true);
                 updateFrequency(FREQUENCY_POWERSAVE_POLICY4, FREQUENCY_POWERSAVE_POLICY7);
+                MinCPU(MIN_CPU0, MIN_CPU4, MIN_CPU7);
                 Gpu(P_MIN_GPU, PB_GPU);
                 break;
         }
@@ -124,6 +129,18 @@ public class CustomTileService extends TileService {
             FileUtils.writeLine(NODE_MIN_POLICY0, String.valueOf(minPolicy0));
             FileUtils.writeLine(NODE_MIN_POLICY4, String.valueOf(minPolicy4));
             FileUtils.writeLine(NODE_MIN_POLICY7, String.valueOf(minPolicy7));
+            Log.d(TAG, "BEAST MODE ACTIVATED");
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to BEAST MODE: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    private void MinCPU(int cpu01, int cpu04, int cpu07) {
+        try {
+            FileUtils.writeLine(NODE_MIN_POLICY0, String.valueOf(cpu01));
+            FileUtils.writeLine(NODE_MIN_POLICY4, String.valueOf(cpu04));
+            FileUtils.writeLine(NODE_MIN_POLICY7, String.valueOf(cpu07));
             Log.d(TAG, "CPU minimum frequency updated successfully");
         } catch (Exception e) {
             Log.e(TAG, "Failed to update CPU frequency: " + e.getMessage());
