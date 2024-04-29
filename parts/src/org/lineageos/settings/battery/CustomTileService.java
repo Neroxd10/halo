@@ -64,6 +64,7 @@ public class CustomTileService extends TileService {
         selectedOption = (selectedOption + 1) % 3; // Cycle through options
 
         updatePreferencesAndFrequency(selectedOption);
+        updateUI();
 
         // Update UI (implement your UI update logic here)
         // You can use Tile APIs like getTileList() or getStatusBarIcon()
@@ -171,10 +172,13 @@ private void updateUI() {
 
     if (isBalanceEnabled) {
         tile.setLabel("Balance");
+        tile.setState(Tile.STATE_ACTIVE);
     } else if (isBeastModeEnabled) {
         tile.setLabel("Beast Mode");
+        tile.setState(Tile.STATE_ACTIVE);
     } else if (isPowerSaveEnabled) {
         tile.setLabel("Power Save");
+        tile.setState(Tile.STATE_ACTIVE);
     } else {
         // Default to Balance if none are selected
         tile.setLabel("Balance");
