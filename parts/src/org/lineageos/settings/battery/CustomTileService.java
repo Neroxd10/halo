@@ -18,6 +18,9 @@ public class CustomTileService extends TileService {
     // MIN & MAX GPU //
     private static final String MIN_GPU = "/sys/class/kgsl/kgsl-3d0/min_clock_mhz";
     private static final String MAX_GPU = "/sys/class/kgsl/kgsl-3d0/max_clock_mhz";
+    // GPU POWER LEVEL //
+    private static final String MAX_PWR = "/sys/class/kgsl/kgsl-3d0/max_pwrlevel";
+    private static final String MIN_PWR = "/sys/class/kgsl/kgsl-3d0/min_pwrlevel";
     // MIN CPU //
     private static final String MIN_POLICY0 = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq"; 
     private static final String MIN_POLICY4 = "/sys/devices/system/cpu/cpu4/cpufreq/scaling_min_freq";
@@ -81,7 +84,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_DEFAULT_KEY, false);
                 updateMAXCPU(2016000, 1996800, 1996800);
                 updateMINCPU(300000, 633600, 787200);
-                Gpu(439, 765);
+                Gpu(364, 765, 4, 14);
                 Governor("walt", "walt", "walt");
                 break;
             case 1:
@@ -93,7 +96,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_DEFAULT_KEY, false);
                 updateMAXCPU(2016000,2745600, 3187200);
                 updateMINCPU(300000, 633600, 787200);
-                Gpu(100, 912);
+                Gpu(100, 912, 0, 14);
                 Governor("walt", "walt", "walt");
                 break;
             case 2:
@@ -105,7 +108,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_DEFAULT_KEY, false);
                 updateMAXCPU(2016000, 2745600, 3187200);
                 updateMINCPU(2016000, 2745600, 3187200);
-                Gpu(912, 912);
+                Gpu(912, 912, 0, 0);
                 Governor("performance", "performance", "performance");
                 break;
             case 3:
@@ -117,7 +120,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_DEFAULT_KEY, false);
                 updateMAXCPU(1228800,1113600, 787200);
                 updateMINCPU(300000, 633600, 787200);
-                Gpu(100, 364);
+                Gpu(100, 220, 13, 14);
                 Governor("powersave", "powersave", "powersave");
                 break;
             case 4:
@@ -129,7 +132,7 @@ public class CustomTileService extends TileService {
                 editor.putBoolean(OPTION_DEFAULT_KEY, true);
                 updateMAXCPU(2016000, 1209600, 1036800);
                 updateMINCPU(300000, 633600, 787200);
-                Gpu(100,439);
+                Gpu(100,324, 11, 14);
                 Governor("walt", "walt", "walt");
                 break;
         }
@@ -160,10 +163,12 @@ public class CustomTileService extends TileService {
         }
     }
 
-    private void Gpu(int minGPU, int maxGPU) {
+    private void Gpu(int minGPU, int maxGPU, int maxpwrlevel, int minpwrlevel) {
         try {
             FileUtils.writeLine(MIN_GPU, String.valueOf(minGPU));
             FileUtils.writeLine(MAX_GPU, String.valueOf(maxGPU));
+            FileUtils.writeLine(MAX_PWR, String.valueOf(maxpwrlevel));
+            FileUtils.writeLine(MIN_PWR, String.valueOf(minpwrlevel));
             Log.d(TAG, "GPU frequency updated successfully");
         } catch (Exception e) {
             Log.e(TAG, "Failed to update GPU frequency: " + e.getMessage());
