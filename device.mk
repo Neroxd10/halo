@@ -348,6 +348,7 @@ PRODUCT_PACKAGES += \
     HaloCarrierConfigResTarget \
     HaloFrameworksResTarget \
     HaloSettingsProviderResTarget \
+    HaloSettingsResTarget \
     HaloSystemUIResTarget \
     HaloWifiResTarget
 
