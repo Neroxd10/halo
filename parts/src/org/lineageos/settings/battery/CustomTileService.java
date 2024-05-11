@@ -1,6 +1,5 @@
 package org.lineageos.settings.battery;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -121,7 +120,7 @@ public class CustomTileService extends TileService {
                 updateMAXCPU(1228800,1113600, 787200);
                 updateMINCPU(300000, 633600, 787200);
                 Gpu(100, 220, 13, 14);
-                Governor("powersave", "powersave", "powersave");
+                Governor("schedutil", "schedutil", "powersave");
                 break;
             case 4:
                 // DEFAULT MODE ACTIVATED //
@@ -133,7 +132,7 @@ public class CustomTileService extends TileService {
                 updateMAXCPU(2016000, 1209600, 1036800);
                 updateMINCPU(300000, 633600, 787200);
                 Gpu(100,324, 11, 14);
-                Governor("walt", "walt", "walt");
+                Governor("schedutil", "schedutil", "schedutil");
                 break;
         }
         editor.apply(); // Apply changes to SharedPreferences

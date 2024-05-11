@@ -17,7 +17,7 @@
 */
 package org.lineageos.settings.battery;
 
-import android.annotation.TargetApi;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.service.quicksettings.Tile;
