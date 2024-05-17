@@ -336,6 +336,7 @@ PRODUCT_PACKAGES += \
     CarrierConfigResCommon \
     FrameworksResCommon \
     HaloWifiResCommon \
+    HaloSettingsOverlay \
     SystemUIResCommon \
     TelephonyResCommon \
     WifiResCommon

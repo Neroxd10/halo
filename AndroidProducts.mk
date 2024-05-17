@@ -5,9 +5,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/lineage_halo.mk
+    $(LOCAL_DIR)/pixelstar_halo.mk
 
 COMMON_LUNCH_CHOICES := \
-    lineage_halo-user \
-    lineage_halo-userdebug \
-    lineage_halo-eng
+    pixelstar_halo-user \
+    pixelstar_halo-userdebug \
+    pixelstar_halo-eng
